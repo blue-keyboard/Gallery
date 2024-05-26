@@ -1,0 +1,28 @@
+* {
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+}
+
+body {
+   display: grid;
+   gap: 16px;
+   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+div {
+   background-color: pink;
+   min-width: 200px;
+   max-width: 400px;
+   aspect-ratio: 1/1;
+}
+
+img {
+   max-height: 100%;
+   position: relative;
+   z-index: 2;
+}
+
+/* @media only screen and (max-width: 576px) {
+  // hacer algo
+} */
