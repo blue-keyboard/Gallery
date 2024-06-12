@@ -4,6 +4,10 @@
    box-sizing: border-box;
 }
 
+html {
+   background-color: #faf9f8;
+}
+
 #app {
    font-family: Arial;
    padding: 2em;
