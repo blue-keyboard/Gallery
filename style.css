@@ -6,10 +6,10 @@
 
 html {
    background-color: #faf9f8;
+   font-family: Arial;
 }
 
 #app {
-   font-family: Arial;
    padding: 2em;
    /* background-color: rgba(255, 255, 255, 0.808); */
    background-color: #f4f3f2;
@@ -23,6 +23,60 @@ html {
    }
 }
 
-/* :root {
-   background-color: rgba(255, 255, 255, 0.97);
-} */
+/* //////////////////////// */
+
+/* .gallery-logo {
+   display: grid;
+   width: fit-content;
+   grid-template-columns: repeat(8, 24px);
+   grid-template-rows: repeat(3, 24px);
+   gap: 3px;
+}
+
+.gallery-logo > div {
+   background-color: black;
+   border-radius: 3px;
+   color: #faf9f8;
+   margin-right: 2px;
+}
+
+#G {
+   display: flex;
+   justify-content: end;
+   align-items: end;
+   font-size: 2.5em;
+   padding-right: 2px;
+   line-height: 0.85em;
+
+   grid-column: 1 / span 2;
+   grid-row: 1 / span 2;
+}
+
+
+#a {
+   grid-column: 3 / span 1;
+   grid-row: 2 / span 1;
+}
+#l {
+   grid-column: 4 / span 1;
+   grid-row: 1 / span 2;
+}
+#l2 {
+   grid-column: 5 / span 1;
+   grid-row: 1 / span 2;
+}
+#er {
+   grid-column: 6 / span 2;
+   grid-row: 2 / span 1;
+}
+#y {
+   display: flex;
+   justify-content: center;
+   font-size: 1.7em;
+   line-height: 0.6em;
+   padding-left: 1px;
+   padding-top: 1px;
+
+   grid-column: 8 / span 1;
+   grid-row: 2 / span 2;
+}  */

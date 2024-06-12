@@ -16,8 +16,7 @@ export const parsePhotos = (rawPhotos) => {
       parsedPhoto.author = photo.user.name
       parsedPhoto.alt = photo.alt_description
       parsedPhoto.referalAuthor = `https://unsplash.com/@${photo.user.username}?utm_source=gallery&utm_medium=referral`
-      parsedPhoto.socials = photo.user.socials
-      parsedPhoto.download = photo.links.download_location
+      parsedPhoto.download = photo.links.html
 
       if (photo.height / photo.width > 1.42) {
          parsedPhoto.resize = parsedPhoto.src + '&fit=crop&w=400&h=816'
@@ -67,7 +66,7 @@ const createPhotoFullDisplayHTML = (event, photo) => {
       <div class="full-display--wrapper">
          <img class="full-display--image" src="${photo.src}" alt="${photo.alt}" />
          <div class="full-display--links">
-            <a id="download" href="#">Download</a>
+            <a id="download" href="${photo.download}" target="_blank">Download</a>
             <span id="author" >Photo by <a href="${photo.referalAuthor}" target="_blank">${photo.author}</a> in  <a href="https://unsplash.com/?utm_source=gallery&utm_medium=referral" target="_blank">Unsplash</a> </span>
          </div>
       </div>

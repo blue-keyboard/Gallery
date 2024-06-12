@@ -36,7 +36,8 @@
    top: 0;
    left: 0;
    width: 100svw;
-   height: 100svh;
+   height: 120svh;
+
    background-color: hsla(0, 0%, 0%, 0.9);
 }
 
@@ -46,7 +47,8 @@
    align-items: center;
    flex-direction: column;
    max-width: 90%;
-   height: 100svh;
+   height: 120svh;
+   padding-bottom: 20svh;
 }
 
 .full-display--image {
@@ -58,10 +60,11 @@
    width: 100%;
    display: flex;
    justify-content: space-between;
-
    margin-top: 1em;
-   font-size: 1.5em;
+   font-size: 1em;
    color: #faf9f8;
+
+   /* opacity: 0; */
 }
 
 a {
