@@ -44,7 +44,7 @@
 .suggestions-nav {
    display: flex;
    height: 52px;
-   margin-bottom: 1em;
+   margin-bottom: 1.5em;
    overflow: hidden;
    position: relative;
 }
@@ -146,4 +146,16 @@
 
 .nav-suggestion:hover > div {
    text-decoration: underline;
+}
+
+@media screen and (max-width: 539px) {
+   .suggestions-nav {
+      margin: 0 0 1em;
+   }
+
+   .suggestions-nav .left-arrow.active,
+   .suggestions-nav .right-arrow.active {
+      opacity: 0;
+      pointer-events: none;
+   }
 }
