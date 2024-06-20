@@ -2,7 +2,6 @@ header {
    display: flex;
    justify-content: space-between;
    align-items: center;
-   max-width: 1464px;
    width: 100%;
    padding: 0 4px 0 2px;
    margin: 0 auto 3em;
@@ -39,7 +38,7 @@ header {
 
    transition: box-shadow ease-in 0.1s, width ease-in-out 0.3s;
 
-   @media screen and (max-width: 699px) {
+   @media screen and (max-width: 539px) {
       width: auto;
       cursor: pointer;
       background-color: #eeedec;
@@ -57,26 +56,18 @@ header {
       }
 
       &:hover {
-         box-shadow: 0 3px 0 0 black;
-
-         @media screen and (max-width: 500px) {
-            box-shadow: 0 1px 0 0 black;
-         }
+         box-shadow: 0 1px 0 0 black;
       }
 
       &:focus-within {
-         width: 100%;
-         box-shadow: 0 3px 0 0 black;
-         @media screen and (max-width: 500px) {
-            box-shadow: 0 1px 0 0 black;
-         }
+         box-shadow: 0 1px 0 0 black;
       }
    }
 
    &:hover {
       box-shadow: 0 3px 0 0 black;
 
-      @media screen and (max-width: 500px) {
+      @media screen and (max-width: 539px) {
          box-shadow: 0 1px 0 0 black;
       }
    }
@@ -85,7 +76,7 @@ header {
       width: 100%;
       box-shadow: 0 3px 0 0 black;
 
-      @media screen and (max-width: 500px) {
+      @media screen and (max-width: 539px) {
          box-shadow: 0 1px 0 0 black;
       }
    }

@@ -3,23 +3,25 @@ import { getRawPhotosFromApi } from '../../Api'
 import { createGallery, setMediaQueries } from '../Gallery/Gallery'
 import { globals } from '../../Globals'
 import { parsePhotos } from '../Photo/Photo'
+import {
+   displaySuggestionsNav,
+   getShuffledSuggestions
+} from '../Suggestions/Suggestions'
 
 export const Header = `
-  <header>
-  <div class="logo">
-    <img src="/assets/gallery-logo.svg" alt="Gallery logo" />
-  </div>
-  <div class="search-bar-wrapper">
-    <img
-        class="search-icon"
-        src="/assets/search-icon.svg"
-        alt="Search icon"
-    />
-    
-        <input type="search" name="query" autocomplete="off" placeholder="Search..." />
-    
-  </div>
-  </header>
+   <header>
+      <a href="/" class="logo">
+         <img src="/assets/gallery-logo.svg" alt="Gallery logo" />
+      </a>
+      <div class="search-bar-wrapper">
+         <img
+            class="search-icon"
+            src="/assets/search-icon.svg"
+            alt="Search icon"
+         />
+         <input type="search" name="query" autocomplete="off" placeholder="Search..." />
+      </div>
+   </header>
 `
 
 export const setHeaderEventListeners = () => {
@@ -45,20 +47,33 @@ export const setHeaderEventListeners = () => {
          const query = e.target.value
          if (query !== '') {
             e.target.blur()
-            let rawPhotos = await getRawPhotosFromApi(query)
-            console.log(rawPhotos)
 
-            if (rawPhotos) {
-               const photos = parsePhotos(rawPhotos)
-               console.log(photos)
-
-               globals.currentPhotos = photos
-            } else {
-               globals.currentPhotos = globals.boilerplatePhotos
-            }
-            globals.matchMedias.removeAllListeners()
-            setMediaQueries()
-            createGallery()
+            // SHOULD BE A FUNCTION THAT GETS EXPORTED TO SUGGESTIONS
+            await queryResultsAndDisplayGallery(query)
          }
       })
+}
+
+// Function that gets used both by Header search and Suggestions click
+export const queryResultsAndDisplayGallery = async (query) => {
+   let rawPhotos = await getRawPhotosFromApi(query)
+
+   console.log(rawPhotos)
+
+   if (rawPhotos && rawPhotos.length > 6) {
+      const photos = parsePhotos(rawPhotos)
+      globals.currentPhotos = photos
+   } else {
+      globals.currentPhotos = getShuffledSuggestions()
+   }
+
+   const suggestionText = document.querySelector('.suggestions-text')
+   suggestionText?.remove()
+
+   globals.matchMedias.removeAllListeners()
+   setMediaQueries()
+
+   document.querySelector('.suggestions-nav')?.remove()
+   displaySuggestionsNav()
+   createGallery()
 }

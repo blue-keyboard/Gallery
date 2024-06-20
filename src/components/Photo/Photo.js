@@ -1,3 +1,4 @@
+import { getSuggestionDisplay } from '../Suggestions/Suggestions'
 import './Photo.css'
 
 export const parsePhotos = (rawPhotos) => {
@@ -18,7 +19,7 @@ export const parsePhotos = (rawPhotos) => {
       parsedPhoto.referalAuthor = `https://unsplash.com/@${photo.user.username}?utm_source=gallery&utm_medium=referral`
       parsedPhoto.download = photo.links.html
 
-      if (photo.height / photo.width > 1.42) {
+      if (photo.height / photo.width > 1.4) {
          parsedPhoto.resize = parsedPhoto.src + '&fit=crop&w=400&h=816'
          parsedPhoto.class = 'vertical'
       } else if (photo.width / photo.height > 1.42) {
@@ -35,15 +36,17 @@ export const parsePhotos = (rawPhotos) => {
 }
 
 export const getPhotoDisplay = (photo, isLastPhotoInArray) => {
+   if (photo.topic) {
+      return getSuggestionDisplay(photo, isLastPhotoInArray)
+   }
+
    const div = document.createElement('div')
    div.classList.add('photo-wrapper')
    const img = document.createElement('img')
    img.alt = photo.alt
 
    if (isLastPhotoInArray) {
-      img.src = isLastPhotoInArray
-         ? photo.src + '&fit=crop&w=400&h=400'
-         : photo.resize
+      img.src = photo.src + '&fit=crop&w=400&h=400'
       div.classList.add('square')
    } else {
       img.src = photo.resize
@@ -51,14 +54,14 @@ export const getPhotoDisplay = (photo, isLastPhotoInArray) => {
    }
 
    div.addEventListener('click', (event) => {
-      createPhotoFullDisplayHTML(event, photo)
+      createPhotoFullDisplayHTML(photo)
    })
 
    div.appendChild(img)
    return div
 }
 
-const createPhotoFullDisplayHTML = (event, photo) => {
+const createPhotoFullDisplayHTML = (photo) => {
    const fullDisplayDiv = document.createElement('div')
    fullDisplayDiv.classList.add('full-display')
 

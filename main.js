@@ -8,9 +8,12 @@ import {
    Header,
    setHeaderEventListeners
 } from './src/components/Header/Header.js'
-import { globals } from './src/Globals.js'
+import {
+   displaySuggestionsText,
+   getShuffledSuggestions
+} from './src/components/Suggestions/Suggestions.js'
 
-const app = document.querySelector('#app')
+export const app = document.querySelector('#app')
 
 app.innerHTML = `
    ${Header}
@@ -19,5 +22,7 @@ app.appendChild(Gallery)
 
 // ON LOAD
 setHeaderEventListeners()
-setMediaQueries({ photos: globals.boilerplatePhotos })
-createGallery({ photos: globals.boilerplatePhotos })
+setMediaQueries({ photos: getShuffledSuggestions() })
+
+displaySuggestionsText()
+createGallery({ photos: getShuffledSuggestions() })

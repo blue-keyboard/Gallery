@@ -1,5 +1,6 @@
 import { globals } from '../../Globals'
 import { getPhotoDisplay } from '../Photo/Photo'
+import { displaySuggestionsText } from '../Suggestions/Suggestions'
 import './Gallery.css'
 
 export const Gallery = document.createElement('div')
@@ -20,18 +21,13 @@ const createArrayToArrangePhotos = (size, col) => {
          Gallery.innerHTML += `<div id="${i * col + j}"></div>`
       }
    }
-   console.log('Total div elements (size): ' + globals.divsArray.length * col)
 }
 
 // Places the photos in the gallery like tetris pieces, starting from the top
 // more of the logic explained inside
 const arrangePhotos = (photos) => {
-   let imgs = photos.slice()
+   photos = photos.slice()
    const divsArray = globals.divsArray
-
-   // DELETE AFTER
-   let squaredToFit = 0
-   console.log('Total photos in array: ' + photos.length)
 
    // mutable variable to control the direction
    // in which we are traversing the array
@@ -58,43 +54,41 @@ const arrangePhotos = (photos) => {
             // In tetris there are 2 options, moving the piece or changing the piece
             // instead of moving it we change the piece till it fits, then we note the cells it ocupies
             // so there is no overlay, then we remove the img from the photos array so it doesnt repeat.
-            for (const [index, img] of imgs.entries()) {
-               // DELETE AFTER
-               if (index === imgs.length - 1) squaredToFit++
-
-               let image = getPhotoDisplay(img, index === imgs.length - 1)
+            for (const [index, img] of photos.entries()) {
+               let photo = getPhotoDisplay(img, index === photos.length - 1)
 
                // place square img
-               if (image.classList.contains('square')) {
-                  div.appendChild(image)
-                  imgs.splice(index, 1)
+               if (photo.classList.contains('square')) {
+                  div.appendChild(photo)
+                  photos.splice(index, 1)
                   break
 
                   // place horizontal img
-               } else if (img.class === 'horizontal') {
-                  // depending on the direction we put the image in one div or the
+               } else if (photo.classList.contains('horizontal')) {
+                  // depending on the direction we put the photo in one div or the
                   let minusOneOrPlusOne = leftToRight ? 1 : -1
+
                   if (divsArray[i][j + minusOneOrPlusOne] === true) {
                      divsArray[i][j + minusOneOrPlusOne] = false
                      div = leftToRight
                         ? div
                         : document.getElementById(`${currentDiv - 1}`)
 
-                     div.appendChild(image)
-                     imgs.splice(index, 1)
+                     div.appendChild(photo)
+                     photos.splice(index, 1)
                      break
                   }
 
                   // place vertical img
-               } else if (img.class === 'vertical') {
+               } else if (photo.classList.contains('vertical')) {
                   // check if we are in the last row becouse trying to access
                   // elements of 'undefined' crashes the program
                   const lastRow = divsArray[i + 1] ? false : true
                   if (!lastRow) {
                      if (divsArray[i + 1][j] === true) {
                         divsArray[i + 1][j] = false
-                        div.appendChild(image)
-                        imgs.splice(index, 1)
+                        div.appendChild(photo)
+                        photos.splice(index, 1)
                         break
                      }
                   }
@@ -107,12 +101,6 @@ const arrangePhotos = (photos) => {
       // the vertical images being placed mostly at the right
       ;(i + 1) % 2 === 0 ? (leftToRight = !leftToRight) : leftToRight
    }
-
-   // DELETE AFTER
-   console.log('Images displayed: ' + (photos.length - imgs.length))
-   console.log('Photos left in array: ' + imgs.length)
-   console.log('Images Squared to fit: ' + squaredToFit)
-   console.log('-----------------------------')
 }
 
 // Function that encompases all the steps
@@ -120,8 +108,6 @@ export const createGallery = ({
    photos = globals.currentPhotos,
    cols = globals.currentCols
 } = {}) => {
-   console.log(globals)
-
    let size = Math.floor(photos.length * 1.3)
    Gallery.classList = ''
    Gallery.classList.add(`columns-${cols}`)
@@ -140,16 +126,16 @@ export const setMediaQueries = ({
    photos = globals.currentPhotos
 } = {}) => {
    globals.matchMedias.mobileWindow = window.matchMedia(
-      `(max-width: ${$1 - 1}px)`
+      `(max-width: ${$1 - 0.1}px)`
    )
    globals.matchMedias.columns3 = window.matchMedia(
-      `(min-width: ${$1}px) and (max-width: ${$2 - 1}px)`
+      `(min-width: ${$1}px) and (max-width: ${$2 - 0.1}px)`
    )
    globals.matchMedias.columns4 = window.matchMedia(
-      `(min-width: ${$2}px) and (max-width: ${$3 - 1}px)`
+      `(min-width: ${$2}px) and (max-width: ${$3 - 0.1}px)`
    )
    globals.matchMedias.columns5 = window.matchMedia(
-      `(min-width: ${$3}px) and (max-width: ${$4 - 1}px)`
+      `(min-width: ${$3}px) and (max-width: ${$4 - 0.1}px)`
    )
    globals.matchMedias.columns6 = window.matchMedia(`(min-width: ${$4}px)`)
 
