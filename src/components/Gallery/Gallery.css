@@ -32,14 +32,14 @@
 
 @media screen and (max-width: 450px) {
    #gallery {
-      gap: 10px;
+      gap: 12px;
    }
 
    .vertical {
-      height: calc(200% + 10px);
+      height: calc(200% + 12px);
    }
 
    .horizontal {
-      width: calc(200% + 10px);
+      width: calc(200% + 12px);
    }
 }

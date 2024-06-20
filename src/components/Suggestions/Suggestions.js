@@ -63,17 +63,19 @@ export const displaySuggestionsNav = () => {
    const suggestionsArray = getShuffledSuggestions().slice(0, 10)
    const suggestionsNav = document.createElement('nav')
    suggestionsNav.classList.add('suggestions-nav')
+   const suggestionsUl = document.createElement('ul')
 
+   // Left Arrow display and Functionality
    const leftArrow = document.createElement('div')
    leftArrow.classList.add('left-arrow')
-   leftArrow.innerHTML = `
+   const leftArrowWrapper = document.createElement('div')
+   leftArrowWrapper.innerHTML = `
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
       </svg>
   `
+   leftArrow.appendChild(leftArrowWrapper)
    suggestionsNav.appendChild(leftArrow)
-
-   const suggestionsUl = document.createElement('ul')
 
    suggestionsArray.forEach((suggestion) => {
       const suggestionLi = document.createElement('li')
@@ -92,13 +94,53 @@ export const displaySuggestionsNav = () => {
 
    const rightArrow = document.createElement('div')
    rightArrow.classList.add('right-arrow')
-   rightArrow.innerHTML = `
+   rightArrow.classList.add('active')
+   const rightArrowWrapper = document.createElement('div')
+   rightArrowWrapper.innerHTML = `
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
       </svg>
   `
+   rightArrow.appendChild(rightArrowWrapper)
    suggestionsNav.appendChild(rightArrow)
 
    const header = document.querySelector('header')
    header.insertAdjacentElement('afterend', suggestionsNav)
+
+   // Scrolling and arrows functionality
+   let scrolledLeft = 0
+
+   const manageArrowIcons = () => {
+      if (scrolledLeft > 20) {
+         leftArrow.classList.add('active')
+      } else {
+         leftArrow.classList.remove('active')
+      }
+
+      let maxScrollValue =
+         suggestionsUl.scrollWidth - suggestionsUl.clientWidth - 20
+
+      if (scrolledLeft >= maxScrollValue) {
+         rightArrow.classList.remove('active')
+      } else {
+         rightArrow.classList.add('active')
+      }
+   }
+
+   rightArrowWrapper.addEventListener('click', async () => {
+      suggestionsUl.scrollLeft += 300
+      scrolledLeft += 300
+      manageArrowIcons()
+   })
+
+   leftArrowWrapper.addEventListener('click', async () => {
+      suggestionsUl.scrollLeft -= 300
+      scrolledLeft -= 300
+      manageArrowIcons()
+   })
+
+   suggestionsUl.addEventListener('scroll', () => {
+      scrolledLeft = suggestionsUl.scrollLeft
+      manageArrowIcons()
+   })
 }
