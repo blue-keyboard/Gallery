@@ -56,6 +56,7 @@ export const getSuggestionDisplay = (suggestion, isLastPhotoInArray) => {
 
    div.addEventListener('click', async () => {
       await queryResultsAndDisplayGallery(suggestion.topic)
+      window.scrollTo(0, 0)
    })
 
    div.appendChild(img)

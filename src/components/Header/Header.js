@@ -49,19 +49,18 @@ export const setHeaderEventListeners = () => {
          const query = e.target.value
          if (query !== '') {
             e.target.blur()
-
-            // SHOULD BE A FUNCTION THAT GETS EXPORTED TO SUGGESTIONS
             await queryResultsAndDisplayGallery(query)
          }
       })
 }
 
 // Function that gets used both by Header search and Suggestions click
+// It asks the api for results, parses them and handles an OK response or possible errors
 export const queryResultsAndDisplayGallery = async (query) => {
    let response = await getRawPhotosFromApi(query)
-   const photos = parsePhotos(response)
+   console.log(response)
 
-   console.log(response, photos)
+   const photos = parsePhotos(response)
 
    document.querySelector('.error')?.remove()
    document.querySelector('.suggestions-text')?.remove()
@@ -74,12 +73,11 @@ export const queryResultsAndDisplayGallery = async (query) => {
       displaySuggestionsNav(query)
       createGallery()
    } else if (response === 403) {
-      console.log('error 403 triggered')
       handleErrorAndDisplay(403)
       globals.matchMedias.removeAllListeners()
+      setMediaQueries()
       document.querySelector('#gallery')?.remove()
    } else if (photos.length < 6 || response === 404) {
-      console.log('error 404 triggered -- ', response.length, photos.length)
       handleErrorAndDisplay(404)
       globals.currentPhotos = getShuffledSuggestions()
       displaySuggestionsText()
@@ -87,7 +85,6 @@ export const queryResultsAndDisplayGallery = async (query) => {
       setMediaQueries()
       createGallery()
    } else {
-      console.log('unknown error')
       globals.currentPhotos = getShuffledSuggestions()
       displaySuggestionsText()
       globals.matchMedias.removeAllListeners()

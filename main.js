@@ -12,6 +12,7 @@ import {
    displaySuggestionsText,
    getShuffledSuggestions
 } from './src/components/Suggestions/Suggestions.js'
+import { globals } from './src/Globals.js'
 
 export const app = document.querySelector('#app')
 
@@ -22,7 +23,7 @@ app.appendChild(Gallery)
 
 // ON LOAD
 setHeaderEventListeners()
-setMediaQueries({ photos: getShuffledSuggestions() })
-
+globals.currentPhotos = getShuffledSuggestions()
+setMediaQueries()
 displaySuggestionsText()
-createGallery({ photos: getShuffledSuggestions() })
+createGallery()

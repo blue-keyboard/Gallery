@@ -27,5 +27,3 @@ export const handleErrorAndDisplay = (error) => {
    const header = document.querySelector('header')
    header.insertAdjacentElement('afterend', errorDiv)
 }
-
-// Sorry, no results were found...
