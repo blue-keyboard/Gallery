@@ -14,11 +14,6 @@
    }
 }
 
-.blur-load {
-   background-size: cover;
-   object-fit: cover;
-}
-
 .vertical {
    height: calc(200% + 16px);
 }

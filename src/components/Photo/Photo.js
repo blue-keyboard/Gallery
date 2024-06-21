@@ -14,7 +14,7 @@ export const parsePhotos = (rawPhotos) => {
       const parsedPhoto = {}
 
       parsedPhoto.src = photo.urls.raw
-      parsedPhoto.blurryFull = photo.urls.thumb.slice(0, -1)
+      parsedPhoto.blurry = photo.urls.thumb.slice(0, -1)
       parsedPhoto.author = photo.user.name
       parsedPhoto.alt = photo.alt_description
       parsedPhoto.referalAuthor = `https://unsplash.com/@${photo.user.username}?utm_source=gallery&utm_medium=referral`
@@ -22,15 +22,12 @@ export const parsePhotos = (rawPhotos) => {
 
       if (photo.height / photo.width > 1.4) {
          parsedPhoto.resize = parsedPhoto.src + '&fit=crop&w=800&h=1632'
-         parsedPhoto.blurry = parsedPhoto.src + '&fit=crop&w=25&h=51'
          parsedPhoto.class = 'vertical'
       } else if (photo.width / photo.height > 1.42) {
          parsedPhoto.resize = parsedPhoto.src + '&fit=crop&w=1632&h=800'
-         parsedPhoto.blurry = parsedPhoto.src + '&fit=crop&w=51&h=25'
          parsedPhoto.class = 'horizontal'
       } else {
          parsedPhoto.resize = parsedPhoto.src + '&fit=crop&w=800&h=800'
-         parsedPhoto.blurry = parsedPhoto.src + '&fit=crop&w=25&h=25'
          parsedPhoto.class = 'square'
       }
       parsedPhotosArray.push(parsedPhoto)
@@ -46,8 +43,6 @@ export const getPhotoDisplay = (photo, isLastPhotoInArray) => {
 
    const div = document.createElement('div')
    div.classList.add('photo-wrapper')
-   div.classList.add('blur-load')
-   div.style.backgroundImage = `url("${photo.blurry}")`
 
    const img = document.createElement('img')
    img.alt = photo.alt
@@ -72,6 +67,8 @@ export const getPhotoDisplay = (photo, isLastPhotoInArray) => {
 const createPhotoFullDisplayHTML = (photo) => {
    const fullDisplayDiv = document.createElement('div')
    fullDisplayDiv.classList.add('full-display')
+
+   console.log(photo.blurry)
 
    const PhotoDisplay = `
       <div class="full-display--wrapper">
