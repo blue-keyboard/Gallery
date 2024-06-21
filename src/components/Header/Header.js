@@ -64,46 +64,34 @@ export const queryResultsAndDisplayGallery = async (query) => {
    console.log(response, photos)
 
    document.querySelector('.error')?.remove()
+   document.querySelector('.suggestions-text')?.remove()
+   document.querySelector('.suggestions-nav')?.remove()
 
    if (photos && photos.length >= 6) {
       globals.currentPhotos = photos
-      document.querySelector('.suggestions-text')?.remove()
       globals.matchMedias.removeAllListeners()
       setMediaQueries()
-      document.querySelector('.suggestions-nav')?.remove()
-      displaySuggestionsNav()
+      displaySuggestionsNav(query)
       createGallery()
    } else if (response === 403) {
       console.log('error 403 triggered')
       handleErrorAndDisplay(403)
       globals.matchMedias.removeAllListeners()
-      document.querySelector('.suggestions-text')?.remove()
-      document.querySelector('.suggestions-nav')?.remove()
       document.querySelector('#gallery')?.remove()
    } else if (photos.length < 6 || response === 404) {
       console.log('error 404 triggered -- ', response.length, photos.length)
       handleErrorAndDisplay(404)
       globals.currentPhotos = getShuffledSuggestions()
-
-      if (!document.querySelector('.suggestions-text')) {
-         displaySuggestionsText()
-      }
-
+      displaySuggestionsText()
       globals.matchMedias.removeAllListeners()
       setMediaQueries()
-      document.querySelector('.suggestions-nav')?.remove()
       createGallery()
    } else {
       console.log('unknown error')
-
       globals.currentPhotos = getShuffledSuggestions()
-
-      if (!document.querySelector('.suggestions-text')) {
-         displaySuggestionsText()
-      }
+      displaySuggestionsText()
       globals.matchMedias.removeAllListeners()
       setMediaQueries()
-      document.querySelector('.suggestions-nav')?.remove()
       createGallery()
    }
 }

@@ -6,8 +6,16 @@ export const displaySuggestionsText = () => {
    const suggestionsTextDiv = document.createElement('div')
    suggestionsTextDiv.innerHTML = 'Some ideas to search for...'
    suggestionsTextDiv.classList.add('suggestions-text')
-   const header = document.querySelector('header')
-   header.insertAdjacentElement('afterend', suggestionsTextDiv)
+
+   if (document.querySelector('.error')) {
+      document
+         .querySelector('.error')
+         .insertAdjacentElement('afterend', suggestionsTextDiv)
+   } else {
+      document
+         .querySelector('header')
+         .insertAdjacentElement('afterend', suggestionsTextDiv)
+   }
 }
 
 export const getShuffledSuggestions = (suggestions = globals.suggestions) => {
@@ -59,8 +67,10 @@ export const getSuggestionDisplay = (suggestion, isLastPhotoInArray) => {
    return div
 }
 
-export const displaySuggestionsNav = () => {
-   const suggestionsArray = getShuffledSuggestions().slice(0, 10)
+export const displaySuggestionsNav = (query) => {
+   const suggestionsArray = getShuffledSuggestions()
+      .slice(0, 13)
+      .filter((suggestion) => suggestion.topic !== query)
    const suggestionsNav = document.createElement('nav')
    suggestionsNav.classList.add('suggestions-nav')
    const suggestionsUl = document.createElement('ul')
