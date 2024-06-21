@@ -5,8 +5,10 @@ import { globals } from '../../Globals'
 import { parsePhotos } from '../Photo/Photo'
 import {
    displaySuggestionsNav,
+   displaySuggestionsText,
    getShuffledSuggestions
 } from '../Suggestions/Suggestions'
+import { handleErrorAndDisplay } from '../Error/Error'
 
 export const Header = `
    <header>
@@ -56,24 +58,52 @@ export const setHeaderEventListeners = () => {
 
 // Function that gets used both by Header search and Suggestions click
 export const queryResultsAndDisplayGallery = async (query) => {
-   let rawPhotos = await getRawPhotosFromApi(query)
+   let response = await getRawPhotosFromApi(query)
+   const photos = parsePhotos(response)
 
-   console.log(rawPhotos)
+   console.log(response, photos)
 
-   if (rawPhotos && rawPhotos.length > 6) {
-      const photos = parsePhotos(rawPhotos)
+   document.querySelector('.error')?.remove()
+
+   if (photos && photos.length >= 6) {
       globals.currentPhotos = photos
-   } else {
+      document.querySelector('.suggestions-text')?.remove()
+      globals.matchMedias.removeAllListeners()
+      setMediaQueries()
+      document.querySelector('.suggestions-nav')?.remove()
+      displaySuggestionsNav()
+      createGallery()
+   } else if (response === 403) {
+      console.log('error 403 triggered')
+      handleErrorAndDisplay(403)
+      globals.matchMedias.removeAllListeners()
+      document.querySelector('.suggestions-text')?.remove()
+      document.querySelector('.suggestions-nav')?.remove()
+      document.querySelector('#gallery')?.remove()
+   } else if (photos.length < 6 || response === 404) {
+      console.log('error 404 triggered -- ', response.length, photos.length)
+      handleErrorAndDisplay(404)
       globals.currentPhotos = getShuffledSuggestions()
+
+      if (!document.querySelector('.suggestions-text')) {
+         displaySuggestionsText()
+      }
+
+      globals.matchMedias.removeAllListeners()
+      setMediaQueries()
+      document.querySelector('.suggestions-nav')?.remove()
+      createGallery()
+   } else {
+      console.log('unknown error')
+
+      globals.currentPhotos = getShuffledSuggestions()
+
+      if (!document.querySelector('.suggestions-text')) {
+         displaySuggestionsText()
+      }
+      globals.matchMedias.removeAllListeners()
+      setMediaQueries()
+      document.querySelector('.suggestions-nav')?.remove()
+      createGallery()
    }
-
-   const suggestionText = document.querySelector('.suggestions-text')
-   suggestionText?.remove()
-
-   globals.matchMedias.removeAllListeners()
-   setMediaQueries()
-
-   document.querySelector('.suggestions-nav')?.remove()
-   displaySuggestionsNav()
-   createGallery()
 }

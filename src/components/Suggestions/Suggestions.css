@@ -150,7 +150,7 @@
 
 @media screen and (max-width: 539px) {
    .suggestions-nav {
-      margin: 0 0 1em;
+      margin-bottom: 1em;
    }
 
    .suggestions-nav .left-arrow.active,

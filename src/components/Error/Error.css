@@ -1,0 +1,100 @@
+.error {
+   width: 100%;
+   padding: 4em 3em;
+   color: #f4f3f2;
+   background-color: black;
+   display: flex;
+   gap: 6em;
+   margin-bottom: 3em;
+}
+
+.error--sad-face {
+   font-size: 16em;
+   line-height: 0.8em;
+   text-wrap: nowrap;
+   padding-bottom: 0.2em;
+}
+
+.error-message {
+   display: flex;
+   flex-direction: column;
+   gap: 2em;
+}
+
+.error--message-title {
+   font-size: 8em;
+   line-height: 0.8em;
+}
+
+.error--message-description {
+   font-size: 1.8em;
+   margin-left: 0.2em;
+   line-height: 1.5em;
+}
+
+@media screen and (max-width: 800px) {
+   .error {
+      padding: 3em 2.5em;
+      gap: 4em;
+   }
+
+   .error-message {
+      gap: 1.5em;
+   }
+
+   .error--sad-face {
+      font-size: 10em;
+   }
+   .error--message-title {
+      font-size: 5em;
+   }
+   .error--message-description {
+      font-size: 1.4em;
+      margin-left: 0.1em;
+   }
+}
+
+@media screen and (max-width: 600px) {
+   .error {
+      padding: 2.5em 2em;
+      gap: 3em;
+   }
+
+   .error-message {
+      gap: 1.3em;
+   }
+
+   .error--sad-face {
+      font-size: 8em;
+   }
+   .error--message-title {
+      font-size: 4em;
+   }
+   .error--message-description {
+      font-size: 1.1em;
+      margin-left: 0.05em;
+   }
+}
+
+@media screen and (max-width: 460px) {
+   .error {
+      padding: 2em 1.5em;
+      gap: 1.5em;
+      margin-bottom: 2em;
+   }
+
+   .error-message {
+      gap: 1em;
+   }
+
+   .error--sad-face {
+      font-size: 6em;
+   }
+   .error--message-title {
+      font-size: 2.5em;
+   }
+   .error--message-description {
+      font-size: 0.9em;
+      margin-left: 0.05em;
+   }
+}

@@ -18,14 +18,21 @@ export const getRawPhotosFromApi = async (
       max = count
    }
 
+   let res
    try {
-      const res = await api.photos.getRandom({ query: query, count: max })
+      res = await api.photos.getRandom({ query: query, count: max })
+
+      console.log(res)
+
       const photos = res.response
       rawPhotos.push(...photos)
       return await getRawPhotosFromApi(query, count - max, rawPhotos)
    } catch (error) {
-      // SUGGESTIONS
-      return false
+      if (error.message === 'expected JSON response from server.') {
+         return 403
+      } else {
+         return 404
+      }
    }
 }
 

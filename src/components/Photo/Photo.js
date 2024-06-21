@@ -2,7 +2,7 @@ import { getSuggestionDisplay } from '../Suggestions/Suggestions'
 import './Photo.css'
 
 export const parsePhotos = (rawPhotos) => {
-   if (!rawPhotos) return false
+   if (!Array.isArray(rawPhotos)) return false
 
    const parsedPhotosArray = []
    const uniquePhotos = new Set()
