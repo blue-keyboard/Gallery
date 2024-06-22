@@ -9,7 +9,7 @@ export const globals = {
 
    MEDIA_QUERIES: [539, 700, 864, 1050],
 
-   // Assigns the columns the gallery would have at initial Load, then later it gets updated at resizes
+   // Assigns the columns the gallery would at initial Load, then it gets updated at resizes
    currentCols: [539, 700, 864, 1050].reduce(
       (acc, num) => (window.innerWidth >= num ? acc + 1 : acc + 0),
       2
