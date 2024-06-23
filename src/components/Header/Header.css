@@ -100,7 +100,7 @@ input[type='search'] {
    width: 100%;
    font-size: 1.5em;
    background-color: inherit;
-   font-family: Arial;
+   font-family: 'Questrial';
 
    &:focus {
       color: black;
