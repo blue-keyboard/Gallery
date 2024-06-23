@@ -11,14 +11,10 @@
    padding: 6px 8px;
    margin: 8px;
    margin-right: 18px;
-   /* border-radius: 4px; */
    color: #faf9f8;
    background-color: black;
    text-align: right;
-   /* z-index: 9999; */
-   transition: 
-      /* font-size 0.2s ease-out, */ padding-top 0.2s ease-out,
-      padding-bottom 0.4s ease-out;
+   transition: padding-top 0.2s ease-out, padding-bottom 0.4s ease-out;
 }
 
 .suggestion:hover > span {
@@ -45,7 +41,7 @@
    display: flex;
    height: 52px;
    margin-bottom: 1.5em;
-   overflow: hidden;
+   /* overflow: hidden; */
    position: relative;
 }
 
@@ -126,8 +122,8 @@
 }
 
 .nav-suggestion--img {
+   height: 52px;
    aspect-ratio: 1/1;
-   /* border-radius: 12px 0 0 12px; */
 }
 
 .nav-suggestion--topic {
@@ -137,7 +133,6 @@
    font-size: 1.2em;
    white-space: nowrap;
    padding: 1em;
-   /* border-radius: 0 12px 12px 0; */
    color: #faf9f8;
    background-color: black;
    transition: all 100ms ease-in-out;

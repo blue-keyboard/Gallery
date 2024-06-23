@@ -1,3 +1,8 @@
+img {
+   /* font-size: 0; */
+   color: transparent;
+}
+
 .photo-wrapper {
    display: block;
    width: 100%;
