@@ -49,6 +49,7 @@ export const setHeaderEventListeners = () => {
          const query = e.target.value
          if (query !== '') {
             e.target.blur()
+            e.target.value = ''
             await queryResultsAndDisplayGallery(query)
          }
       })
