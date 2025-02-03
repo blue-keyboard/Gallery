@@ -21,13 +21,13 @@ export const parsePhotos = (rawPhotos) => {
       parsedPhoto.download = photo.links.html
 
       if (photo.height / photo.width > 1.4) {
-         parsedPhoto.resize = parsedPhoto.src + '&fit=crop&w=800&h=1632'
+         parsedPhoto.resize = parsedPhoto.src + '&fit=crop&w=400&h=816'
          parsedPhoto.class = 'vertical'
       } else if (photo.width / photo.height > 1.42) {
-         parsedPhoto.resize = parsedPhoto.src + '&fit=crop&w=1632&h=800'
+         parsedPhoto.resize = parsedPhoto.src + '&fit=crop&w=816&h=400'
          parsedPhoto.class = 'horizontal'
       } else {
-         parsedPhoto.resize = parsedPhoto.src + '&fit=crop&w=800&h=800'
+         parsedPhoto.resize = parsedPhoto.src + '&fit=crop&w=400&h=400'
          parsedPhoto.class = 'square'
       }
       parsedPhotosArray.push(parsedPhoto)
@@ -49,7 +49,7 @@ export const getPhotoDisplay = (photo, isLastPhotoInArray) => {
    img.loading = 'lazy'
 
    if (isLastPhotoInArray) {
-      img.src = photo.src + '&fit=crop&w=800&h=800'
+      img.src = photo.src + '&fit=crop&w=400&h=400'
       div.classList.add('square')
    } else {
       img.src = photo.resize
